@@ -9,6 +9,11 @@ COOKIES_FILE = os.environ.get("COOKIES_FILE")
 AUDD_TOKEN = os.environ.get("AUDD_API_TOKEN", "")
 DB_PATH = os.environ.get("DB_PATH", "bot_data.sqlite3")
 
+try:
+    MAX_HEIGHT = int(os.environ.get("MAX_HEIGHT", "720"))
+except ValueError:
+    MAX_HEIGHT = 720
+
 MAX_BYTES = 45 * 1024 * 1024  # Telegram yuborish chegarasi ~50 MB
 
 HOSTS = (

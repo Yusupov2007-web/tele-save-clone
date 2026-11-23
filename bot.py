@@ -106,6 +106,15 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(t("help", user["lang"]))
 
 
+async def hd_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user = db.get_user(update.effective_user.id)
+    url = " ".join(context.args or "").strip()
+    if not url:
+        await update.message.reply_text("Foydalanish: /hd https://...")
+        return
+    await send_media(update, context, url, audio_only=False, lang=user["lang"], max_height=0)
+
+
 async def settings_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = db.get_user(update.effective_user.id)
     await update.message.reply_text(
@@ -261,6 +270,7 @@ def main() -> None:
     app.add_handler(CommandHandler("new", new_cmd))
     app.add_handler(CommandHandler("my", my_cmd))
     app.add_handler(CommandHandler("audio", audio_cmd))
+    app.add_handler(CommandHandler("hd", hd_cmd))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_link))
     app.add_handler(
         MessageHandler(filters.VOICE | filters.AUDIO | filters.VIDEO | filters.VIDEO_NOTE, on_media)

@@ -11,6 +11,7 @@
 
 - 📥 Link yuboring → Instagram, TikTok, YouTube, Pinterest, Likee, Threads, Snapchat videolarini yuklab beradi.
 - 🎧 `/audio <link>` → faqat ovozni ajratadi.
+- 📺 `/hd <link>` → to'liq sifat (sekinroq bo'lishi mumkin).
 - 🎵 Ovozli xabar/audio/video yuboring → **qo'shiq tanib beradi** (AudD API bilan).
 - 📈 `/top`, `/new` → mintaqa bo'yicha chartlar (demo ma'lumotlar).
 - ❤️ `/my` → saqlangan qo'shiqlar ro'yxati, like/unlike tugmalari.
