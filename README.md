@@ -1,38 +1,74 @@
-# Tele_Save_Bot ga o'xshash bot (qayta yozilgan versiya)
+# tele-save-clone
 
-@Tele_Save_Bot ning **asl kodi** ochiq emas, bu — unga o'xshash funksiyali mustaqil kod.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)](https://www.python.org/)
+[![python-telegram-bot](https://img.shields.io/badge/PTB-21%2B-2CA5E0)](https://python-telegram-bot.readthedocs.io/)
+[![yt-dlp](https://img.shields.io/badge/yt--dlp-latest-orange)](https://github.com/yt-dlp/yt-dlp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Ishga tushirish
+[@Tele_Save_Bot](https://t.me/Tele_Save_Bot) ga o'xshash, noldan yozilgan Telegram bot. Asl botning kodi ochiq emas — bu mustaqil qayta yozilgan versiya.
+
+## Imkoniyatlar
+
+- 📥 Link yuboring → Instagram, TikTok, YouTube, Pinterest, Likee, Threads, Snapchat videolarini yuklab beradi.
+- 🎧 `/audio <link>` → faqat ovozni ajratadi.
+- 🎵 Ovozli xabar/audio/video yuboring → **qo'shiq tanib beradi** (AudD API bilan).
+- 📈 `/top`, `/new` → mintaqa bo'yicha chartlar (demo ma'lumotlar).
+- ❤️ `/my` → saqlangan qo'shiqlar ro'yxati, like/unlike tugmalari.
+- ⚙️ `/settings` → til (uz / ru / en), mintaqa, tema.
+- 👥 Guruhlarda ishlaydi (BotFather orqali privacy o'chiriladi).
+
+## Tez boshlash
 
 ```bash
+python -m venv .venv
+.venv\Scripts\activate        # Windows
 pip install -r requirements.txt
 ```
 
-BotFather'dan token oling, so'ng:
+`.env.example` ni `.env` ga nusxalab, `BOT_TOKEN` ni to'ldiring. Keyin:
 
-```bash
-# Windows PowerShell
-$env:BOT_TOKEN="123456:ABC..."; python bot.py
+```powershell
+$env:BOT_TOKEN="123456:ABC..."
+python bot.py
 ```
 
-Ixtiyoriy: Instagram kabi saytlar ba'zan cookie talab qiladi:
+Yoki `.env` ni avtomatik o'qish uchun `pip install python-dotenv` qo'shib, `bot.py` boshiga `from dotenv import load_dotenv; load_dotenv()` yozing.
 
-```bash
-$env:COOKIES_FILE="cookies.txt"
-```
+### Muhit o'zgaruvchilari
+
+| O'zgaruvchi | Majburiy | Tavsif |
+|---|---|---|
+| `BOT_TOKEN` | ✅ | BotFather'dan olingan token |
+| `COOKIES_FILE` | ❌ | Yopiqroq saytlar uchun `cookies.txt` yo'li |
+| `AUDD_API_TOKEN` | ❌ | Qo'shiq tanish uchun [AudD](https://audd.io) tokeni |
+| `DB_PATH` | ❌ | SQLite fayli (default: `bot_data.sqlite3`) |
 
 ## Komandalar
 
-- Link yuboring -> video qaytadi.
-- `/audio <link>` -> faqat ovoz.
-- `/start`, `/help`.
+| Komanda | Vazifa |
+|---|---|
+| `/start` | Boshlash va til tanlash |
+| `/help` | Yordam |
+| `/audio <link>` | Faqat audio |
+| `/top` / `/new` | Chartlar |
+| `/my` | Saqlangan qo'shiqlar |
+| `/settings` | Til, mintaqa, tema |
 
-Guruhlarda ishlashi uchun BotFather -> `/setprivacy` -> `Disable`.
+## Tuzilma
 
-## Qo'shish kerak bo'ladigan qismlar
+```
+bot.py           # handlerlar va tugmalar
+config.py        # sozlamalar
+db.py            # SQLite: user, like, chart
+downloader.py    # yt-dlp yuklash
+recognition.py   # AudD qo'shiq tanish
+i18n.py          # uz / ru / en matnlar
+requirements.txt
+```
 
-- **Shazam/qo'shiq tanish**: asl botda ACRCloud yoki AudD kabi pullik API kerak (bu kodda yo'q).
-- **/top, /new, /my, /settings**: chart va foydalanuvchi playlist'i uchun alohida DB (SQLite/PostgreSQL) yozish kerak.
-- Faqat **ochiq** kontent yuklanadi; yopiq akkaunt va shaxsiy linklar ishlamaydi.
+## Eslatmalar
 
-Eslatma: boshqa birovning videosini o'z kontentingiz sifatida tarqatish mualliflik huquqini buzishi mumkin.
+- Faqat **ochiq** kontent yuklanadi; shaxsiy akkaunt va linklar ishlamaydi.
+- Chartlar hozircha **demo** ma'lumotlar (`db.py` ichidagi `seed_charts()`) — real API bilan almashtirish mumkin.
+- AudD tokensiz qo'shiq tanish o'chirib qo'yiladi (bot ishlayveradi).
+- Boshqa birovning videosini o'z kontentingiz sifatida tarqatish mualliflik huquqini buzishi mumkin.
