@@ -1,8 +1,16 @@
-"""Sozlamalar va konstantalar (faqat muhit o'zgaruvchilaridan o'qiladi)."""
+"""Sozlamalar va konstantalar (.env va muhit o'zgaruvchilaridan o'qiladi)."""
 
 from __future__ import annotations
 
 import os
+from pathlib import Path
+
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv(Path(__file__).resolve().parent / ".env")
+except Exception:
+    pass
 
 TOKEN = os.environ.get("BOT_TOKEN", "")
 COOKIES_FILE = os.environ.get("COOKIES_FILE")
