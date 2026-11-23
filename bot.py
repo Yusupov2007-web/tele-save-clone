@@ -194,6 +194,9 @@ async def on_media(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         filename = getattr(media, "file_name", None) or "audio.ogg"
         result = await recognize(bytes(raw), filename, AUDD_TOKEN)
     except Exception:
+        import traceback
+
+        traceback.print_exc()
         result = None
     if not result:
         await message.reply_text(t("recognize_fail", lang))
