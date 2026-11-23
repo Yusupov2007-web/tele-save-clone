@@ -182,9 +182,7 @@ async def handle_link(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
 async def on_media(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = db.get_user(update.effective_user.id)
     lang = user["lang"]
-    if not AUDD_TOKEN:
-        await update.message.reply_text(t("recognize_no_api", lang))
-        return
+    # AudD token majburiy emas — Shazam bepul ishlaydi
     message = update.message
     media = message.voice or message.audio or message.video or message.video_note
     if media is None:
